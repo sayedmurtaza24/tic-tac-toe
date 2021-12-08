@@ -3,7 +3,7 @@ const fs = require("fs");
 
 const { stateManager } = require("./state/state_manager");
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 const sendResponse = (response_object, response_status, response_json) => {
     return response_object
