@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Tic Tac Toe</title>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div class="gameMenuContainer">
+            <h1 class="gameTitle"><span style="color: #5aaff6">Tic </span>Tac <span style="color: #39ce9b">Toe</span>
+            </h1>
+            <div class="gameMenuButtonsContainer">
+                <button class="gameButton" onclick="menuController.playLocalMultiplayer()">Local Multiplayer</button>
+                <button class="gameButton" onclick="menuController.showRoleSelector()">Online Multiplayer</button>
+            </div>
+        </div>
+        <div class="container chooseRoleContainer">
+            <span>Choose your role:</span>
+            <div class="chooseRoleButtonsContainer">
+                <button class="gameButton" onclick="menuController.selectRole('X')">
+                    <div class="cross">
+                        <svg width="82" height="82">
+                            <line x1="19" y1="19" x2="65" y2="65" class="crossLine crossLine1" />
+                            <line x1="65" y1="19" x2="19" y2="65" class="crossLine crossLine2" />
+                        </svg>
+                    </div>
+                </button>
+                <button class="gameButton" onclick="menuController.selectRole('O')">
+                    <div class="circle">
+                        <svg width="82" height="82">
+                            <circle cx="41" cy="41" r="27" class="circleSvg"></circle>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+            <button class="gameButton" onclick="menuController.showMenu()">←</button>
+        </div>
+        <div class="container gameUrlContainer">
+            <span>Share this link with your opponent to start:</span>
+            <div class="urlContainer">
+                <a href="" target="_blank">
+                    <span style="max-width: 200px"></span>
+                </a>
+            </div>
+            <span>Share this link with anyone to spectate the match!</span>
+            <div class="spectateUrlContainer">
+                <a href="" target="_blank">
+                    <span style="max-width: 200px"></span>
+                </a>
+            </div>
+            <span>
+                <button class="gameButton" onclick="menuController.showMenu()">←</button>
+                <button class="gameButton" onclick="menuController.startMultiplayerGame()">Start Match</button>
+            </span>
+        </div>
+    </div>
+    <script src="js/menu_controller.js"></script>
+</body>
+
+</html>

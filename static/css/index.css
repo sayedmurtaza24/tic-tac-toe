@@ -1,0 +1,297 @@
+* {
+    font-family: 'Quicksand', sans-serif;
+    -webkit-font-smoothing: subpixel-antialiased;
+}
+
+body {
+    margin: 0;
+    background: whitesmoke;
+}
+
+.gameTitle {
+    font-size: 70px;
+    padding: 0px 30px;
+    text-align: center;
+    margin: 0 0px 40px 0;
+    color: gray;
+}
+
+.mainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.gameMenuContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 30px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
+    animation: showContainer 0.3s ease-out;
+}
+
+.gameMenuButtonsContainer {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 30px 30px;
+    gap: 10px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    animation: showContainer 0.3s ease-out;
+}
+
+.gameUrlContainer {
+    gap: 20px;
+    width: 400px;
+    text-align: center;
+}
+.gameUrlContainer span {
+    padding: 0px 20px;
+}
+.gameUrlContainer div a {
+    overflow-wrap: anywhere;
+    margin: 0px 20px;
+}
+
+.gameButton {
+    border: 0px solid rgba(255, 255, 255, 0.5);
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 18px;
+    margin: 5px 5px;
+    color: black;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.gameButton:hover {
+    background-color: #dbdbdb;
+}
+
+.gameButton:active {
+    transform: translateY(2px);
+}
+
+.disabledButton {
+    pointer-events: none;
+}
+
+.gameContainer {
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.serverStatus {
+    font-size: 14px;
+    height: 18px;
+}
+
+.boardContainer {
+    display: grid;
+    width: 350px;
+    height: 350px;
+    gap: 2px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.05);
+    background-color: rgb(228, 228, 228);
+}
+
+.boardTile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    font-size: 60px;
+    color: white;
+}
+
+.boardTile:hover {
+    background-color: whitesmoke;
+    cursor: pointer;
+}
+
+.boardTile:active {
+    background-color: rgb(238, 238, 238);
+}
+
+.winnerTile {
+    background-color: rgb(246, 246, 246)
+}
+
+.statsContainer {
+    padding-right: 50px;
+    transform: scale(0.7)
+}
+
+.stats {
+    padding: 30px 0px;
+}
+
+.count {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.controlsContainer {
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    width: 79px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(80, 80, 80);
+}
+
+.notHoverable:hover {
+    cursor: default;
+    background-color: white;
+    transform: none;
+}
+
+.notInteractive {
+    pointer-events: none;
+}
+
+.circle {
+    height: 82px;
+    transform: rotate(-90deg);
+}
+
+.circleSvg {
+    fill: none;
+    stroke: #5aaff6;
+    stroke-width: 9;
+    stroke-linecap: round;
+}
+
+.animatedCircle {
+    stroke-dasharray: 169;
+    stroke-dashoffset: 162;
+    animation: circleAnimation 0.25s ease-in-out forwards;
+}
+
+.cross {
+    height: 82px;
+}
+
+.crossLine {
+    fill: none;
+    stroke: #39ce9b;
+    stroke-width: 9;
+    stroke-linecap: round;
+}
+
+.animatedCross svg .crossLine {
+    stroke-dasharray: 66;
+    stroke-dashoffset: 66;
+    animation: crossAnimation 0.15s ease-in-out forwards;
+}
+
+.animatedCross svg .crossLine1 {
+    animation-delay: 0.1s;
+}
+
+.balanceIcon {
+    width: 60px;
+    height: 77px;
+    object-fit: contain;
+    opacity: 0.8;
+    filter: saturate(0%);
+}
+
+.loading {
+    width: 4px;
+    height: 4px;
+    margin-left: 20px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 3px solid transparent;
+    border-top: 3px solid gray;
+    border-right: 3px solid gray;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes circleAnimation {
+    0% {
+        stroke-dashoffset: 162;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes crossAnimation {
+    0% {
+        stroke-dashoffset: 66;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes showContainer {
+    0% {
+        transform: translateY(20px)
+    }
+    100% {
+        transform: translateY(0)
+    }
+}
+
+@media only screen and (max-width: 690px) {
+    .mainContainer {
+        flex-direction: column;
+    }
+    .statsContainer {
+        display: flex;
+        padding-right: 0;
+        gap: 40px;
+    }
+    .controlsContainer {
+        flex-direction: row;
+        align-items: center;
+        gap: 40px;
+        padding-left: 0;
+        width: auto;
+    }
+    .controlsContainer button {
+        height: 50px;
+    }
+    .controlsContainer .stats {
+        transform: scale(0.7);
+    }
+}
