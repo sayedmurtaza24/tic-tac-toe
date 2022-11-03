@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Tic Tac Toe</title>
+</head>
+
+<body>
+    <div class="mainContainer">
+        <div class="statsContainer">
+            <span class="crossStats">
+                <div class="stats">
+                    <div class="cross">
+                        <svg width="82" height="82">
+                            <line x1="19" y1="19" x2="65" y2="65" class="crossLine crossLine1" />
+                            <line x1="65" y1="19" x2="19" y2="65" class="crossLine crossLine2" />
+                        </svg>
+                    </div>
+                    <span class="count winCount_X" style="color: #39ce9b"><span>0</span> wins</span>
+                </div>
+            </span>
+            <span class="drawStats">
+                <div class="stats">
+                    <div class="balance">
+                        <img class="balanceIcon" src="img/balance.png" alt="draw">
+                    </div>
+                    <span class="count drawCount" style="color: gray"><span>0</span> draws</span>
+                </div>
+            </span>
+            <span class="circleStats">
+                <div class="stats">
+                    <div class="circle">
+                        <svg width="82" height="82">
+                            <circle cx="41" cy="41" r="27" class="circleSvg"></circle>
+                        </svg>
+                    </div>
+                    <span class="count winCount_O" style="color: #5aaff6"><span>0</span> wins</span>
+                </div>
+            </span>
+        </div>
+        <div class="gameContainer">
+            <span class="serverStatus"></span>
+            <div class="boardContainer">
+                <div class="boardTile"></div>
+                <div class="boardTile"></div>
+                <div class="boardTile"></div>
+                <div class="boardTile"></div>
+                <div class="boardTile"></div>
+                <div class="boardTile"></div>
+                <div class="boardTile"></div>
+                <div class="boardTile"></div>
+                <div class="boardTile"></div>
+            </div>
+            <span style="height: 18px"></span>
+        </div>
+        <div class="controlsContainer">
+            <button title="Replay" class="gameButton replayButton">&#x21bb;</button>
+            <div class="stats">
+                <div class="cross">
+                    <svg width="82" height="82">
+                        <line x1="19" y1="19" x2="65" y2="65" class="crossLine crossLine1" />
+                        <line x1="65" y1="19" x2="19" y2="65" class="crossLine crossLine2" />
+                    </svg>
+                </div>
+                Turn
+            </div>
+            <button title="Go Home" class="gameButton goBackButton">←</button>
+        </div>
+    </div>
+    <script src="js/board_controller.js"></script>
+    <script src="js/http_controller.js"></script>
+    <script src="js/game_controller.js"></script>
+</body>
+
+</html>
