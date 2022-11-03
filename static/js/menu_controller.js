@@ -17,7 +17,7 @@ function MenuController() {
     },
     async selectRole(role) {
       try {
-        const response = await fetch(`/start`, { method: "POST" });
+        const response = await fetch(`/api/start`, { method: "POST" });
         const responseJson = await response.json();
 
         if (response.status != 200) return console.log("Error.");
