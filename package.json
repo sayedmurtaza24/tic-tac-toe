@@ -4,8 +4,8 @@
   "description": "tic-tac-toe home assignment project for peltarion",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "test": "jest ."
   },
   "jest": {
