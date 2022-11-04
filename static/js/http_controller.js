@@ -5,13 +5,13 @@ function HttpController(gameId, playerId) {
 
     return {
         async fetchGameState() {
-            const response = await fetch(`/stats?${urlQuery}`);
+            const response = await fetch(`/api/stats?${urlQuery}`);
             if (response.status === 200) return await response.json();
         },
         async postUpdate(move) {
             if (!playerId) return;
             let body = JSON.stringify({ move });
-            const response = await fetch(`/move?${urlQuery}`, {
+            const response = await fetch(`/api/move?${urlQuery}`, {
                 method: "POST",
                 headers: jsonHeader,
                 body: body,
@@ -21,7 +21,7 @@ function HttpController(gameId, playerId) {
         async waitForTurn() {
             try {
                 // await for your turn to come
-                const response = await fetch(`/waitForTurn?${urlQuery}`, { method: "POST" })
+                const response = await fetch(`/api/waitTurn?${urlQuery}`);
                 if (response.status == 200) return;
                 else if (response.status == 504) return await this.waitForTurn();
                 else {
@@ -36,12 +36,12 @@ function HttpController(gameId, playerId) {
         },
         async replay() {
             if (!playerId) return;
-            const response = await fetch(`/replay?${urlQuery}`, { method: "POST" });
+            const response = await fetch(`/api/replay?${urlQuery}`, { method: "POST" });
             return response.status;
         },
         async waitForReplay() {
             try {
-                const response = await fetch(`/waitForReplay?${urlQuery}`, { method: "POST" })
+                const response = await fetch(`/api/waitReplay?${urlQuery}`)
                 if (response.status == 200) return;
                 else if (response.status == 504) return await this.waitForReplay();
                 else {

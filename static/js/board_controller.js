@@ -41,7 +41,7 @@ function BoardController() {
             boardTiles.forEach((tile) => {
                 tile.classList = ["boardTile"];
                 tile.innerHTML = "";
-            })
+            });
         },
         setCurrentPlayer(newPlayer) {
             winnerLoserStats.innerHTML = (newPlayer == "X" ? cross(false) : circle(false)) + 'Turn';
@@ -68,8 +68,8 @@ function BoardController() {
                 serverStatus.innerHTML = ``
             }
         },
-        setBoardWinner({ isThereAWinner, winner }) {
-            if (isThereAWinner) {
+        setBoardWinner({ winner }) {
+            if (winner) {
                 winnerLoserStats.innerHTML = (winner == "X" ? cross() : circle()) + "Won. 🎉";
             } else {
                 winnerLoserStats.innerHTML = balance() + "A draw!"

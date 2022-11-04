@@ -12,15 +12,11 @@ module.exports = class GameData {
   gameId;
   state;
   constructor(gameId, { playerX, playerO, state } = {}) {
-    this.gameId = gameId;
-    this.playerX = playerX;
-    this.playerO = playerO;
-    this.state = state;
+    this.gameId = gameId ?? "game-" + crypto.randomUUID();
+    this.playerX = playerX ?? "player-" + crypto.randomUUID();
+    this.playerO = playerO ?? "player-" + crypto.randomUUID();
+    this.state = state ?? new GameBoardState({ boardSize: BOARD_SIZE });;
 
-    this.gameId ??= "game-" + crypto.randomUUID();
-    this.playerX ??= "player-" + crypto.randomUUID();
-    this.playerO ??= "player-" + crypto.randomUUID();
-    this.state ??= new GameBoardState({ boardSize: BOARD_SIZE });
     this.state.setOnMoveListener(() => {
       this.#turn.resolver();
       this.#turn.promise = new Promise(res => {

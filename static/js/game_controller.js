@@ -146,11 +146,11 @@ function GameController() {
             }
             if (winner) {
                 boardController.highlightWinnerTiles({ winnerTileIndices: winner_tile });
-                boardController.setBoardWinner({ isThereAWinner: true, winner });
+                boardController.setBoardWinner({ winner });
                 return winner;
             }
             else if (!winner && this.moveNumber == 9) {
-                boardController.setBoardWinner({ isThereAWinner: false });
+                boardController.setBoardWinner({ winner });
                 return "draw";
             }
             else return null;
@@ -188,9 +188,7 @@ function GameController() {
                     // override boardStatus if there is a result
                     boardStatus = "ended";
                     // wait for any potential replay request
-                    console.log("waiting for replay request...")
                     httpController.waitForReplay().then(async () => {
-                        console.log("replay clicked...")
                         boardController.resetBoard();
                         await this.syncGameStats();
                     })
