@@ -46,15 +46,13 @@
         <div class="container gameUrlContainer">
             <span>Share this link with your opponent to start:</span>
             <div class="urlContainer">
-                <a href="" target="_blank">
-                    <span style="max-width: 200px"></span>
-                </a>
+                <input class="urlInput" readonly type="text"/>
+                <button id="copyOpponent" class="gameButton">Copy</button>
             </div>
             <span>Share this link with anyone to spectate the match!</span>
-            <div class="spectateUrlContainer">
-                <a href="" target="_blank">
-                    <span style="max-width: 200px"></span>
-                </a>
+            <div class="urlContainer ">
+                <input class="urlInput" readonly type="text"/>
+                <button id="copySpectate" class="gameButton">Copy</button>
             </div>
             <span>
                 <button class="gameButton" onclick="menuController.showMenu()">←</button>

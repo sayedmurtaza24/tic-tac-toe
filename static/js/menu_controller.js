@@ -25,8 +25,7 @@ function MenuController() {
         _render(linkShareNode);
 
         const baseLink = `http://${window.location.host}/game.html?gameId=${responseJson.gameId}`;
-        const opponentLinkNode = document.querySelector(".urlContainer a");
-        const spectatorLinkNode = document.querySelector(".spectateUrlContainer a");
+        const [opponentLinkNode, spectatorLinkNode] = document.querySelectorAll(".urlInput");
 
         let multiplayerJoinLink;
         if (role == "X") {
@@ -36,11 +35,17 @@ function MenuController() {
           startLink = `${baseLink}&playerId=${responseJson.playerO}`;
           multiplayerJoinLink = `${baseLink}&playerId=${responseJson.playerX}`;
         }
-        opponentLinkNode.innerHTML = multiplayerJoinLink;
-        opponentLinkNode.setAttribute("href", multiplayerJoinLink);
+        opponentLinkNode.value = multiplayerJoinLink;
+        spectatorLinkNode.value = baseLink;
 
-        spectatorLinkNode.setAttribute("href", baseLink);
-        spectatorLinkNode.innerHTML = baseLink;
+        document.querySelector("#copyOpponent").onclick = () => {
+          navigator.clipboard.writeText(multiplayerJoinLink);
+        }
+
+        document.querySelector("#copySpectate").onclick = () => {
+          navigator.clipboard.writeText(baseLink);
+        }
+
       } catch (error) {
         console.log("Connection failed")
       }
