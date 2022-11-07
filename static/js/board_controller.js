@@ -1,3 +1,10 @@
+const BoardStatus = Object.freeze({
+    WAITING: 1,
+    MOVING: 2,
+    ENDED: 3,
+    SPECTATING: 4,
+});
+
 function BoardController() {
     // quick tile icon copy functions
     const cross = (animated = true) => {
@@ -50,17 +57,17 @@ function BoardController() {
          * Set board status to either "It's your turn, make a move" or "Waiting for the other player to make a move..."
          * @param {string} boardStatus Can be either "waiting", "moving", "ended", "spectating" or "empty".
          */
-        setBoardStatus({ boardStatus = "waiting" }) {
-            if (boardStatus == "waiting") {
+        setBoardStatus({ boardStatus = BoardStatus.WAITING }) {
+            if (boardStatus == BoardStatus.WAITING) {
                 this.freezeBoard();
                 serverStatus.innerHTML = `Waiting for the other player to make a move...<span class="loading"></span>`;
-            } else if (boardStatus == "moving") {
+            } else if (boardStatus == BoardStatus.MOVING) {
                 this.unfreezeBoard();
                 serverStatus.innerHTML = `Your turn now, make a move.`;
-            } else if (boardStatus == "ended") {
+            } else if (boardStatus == BoardStatus.ENDED) {
                 this.freezeBoard();
                 serverStatus.innerHTML = `Game ended, click replay to start a new one.`
-            } else if (boardStatus == "spectating") {
+            } else if (boardStatus == BoardStatus.SPECTATING) {
                 this.freezeBoard();
                 serverStatus.innerHTML = `You're spectating, enjoy!`
             } else {

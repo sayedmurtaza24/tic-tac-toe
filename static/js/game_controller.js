@@ -1,3 +1,9 @@
+const GameMode = Object.freeze({
+    LOCAL: 1,
+    NETWORK: 2,
+    SPECTATE: 3,
+});
+
 function GameController() {
     // controllers
     const boardController = BoardController();
@@ -8,7 +14,7 @@ function GameController() {
         boardState: Array(9).fill(null),
         currentPlayer: "X",
         moveNumber: 0,
-        gameMode: "local",
+        gameMode: GameMode.LOCAL,
         localGameHistoryStats: {
             xWinCount: 0,
             oWinCount: 0,
@@ -25,7 +31,7 @@ function GameController() {
             const params = new URLSearchParams(window.location.search);
             if (params.get("gameId") && params.get("playerId")) {
                 // playing as a player
-                this.gameMode = "network";
+                this.gameMode = GameMode.NETWORK;
                 this.gameId = params.get("gameId");
                 this.playerId = params.get("playerId");
 
@@ -35,12 +41,12 @@ function GameController() {
                 this.syncGameStats();
             } else if (params.get("gameId") && !params.get("playerId")) {
                 // watching as as spectator
-                this.gameMode = "spectate";
+                this.gameMode = GameMode.SPECTATE;
                 this.gameId = params.get("gameId");
                 // initialize httpController
                 httpController = HttpController(this.gameId);
 
-                boardController.setBoardStatus({ boardStatus: "spectating" })
+                boardController.setBoardStatus({ boardStatus: BoardStatus.SPECTATING })
                 this.handleSpectateMode();
             }
 
@@ -51,9 +57,11 @@ function GameController() {
             }
             // handle replay button
             const replayButton = document.querySelector(".replayButton");
-            if (this.gameMode != "spectate")
+            if (this.gameMode != GameMode.SPECTATE) {
                 replayButton.addEventListener("click", () => this.onReplay());
-            else replayButton.classList.add("disabledButton");
+            } else {
+                replayButton.classList.add("disabledButton");
+            }
 
             // handle back button
             const backButton = document.querySelector(".goBackButton");
@@ -65,33 +73,28 @@ function GameController() {
         },
         async onReplay() {
             switch (this.gameMode) {
-                case "network":
-                    await httpController.replay();
-                    break;
-                case "local":
+                case GameMode.NETWORK:
+                    return await httpController.replay();
+                case GameMode.LOCAL:
                     this.boardState = Array(9).fill(null);
                     this.currentPlayer = "X";
                     this.moveNumber = 0;
-                    boardController.setBoardStatus({ boardStatus: "empty" });
+                    boardController.setBoardStatus({ boardStatus: null });
                     boardController.setCurrentPlayer(this.currentPlayer);
                     boardController.resetBoard();
                     break;
                 default:
-                    // spectate mode
                     break;
             }
         },
         async onTileClick(tileIndex) {
             // check game mode
             switch (this.gameMode) {
-                case "network":
+                case GameMode.NETWORK:
                     const response = await httpController.postUpdate(tileIndex);
                     if (response == 200) {
                         await this.syncGameStats();
                     }
-                    break;
-                case "spectate":
-                    // nothing
                     break;
                 default:
                     // local
@@ -109,17 +112,17 @@ function GameController() {
                         case "X":
                             this.localGameHistoryStats.xWinCount++;
                             boardController.setBoardCounters(this.localGameHistoryStats);
-                            boardController.setBoardStatus({ boardStatus: "ended" });
+                            boardController.setBoardStatus({ boardStatus: BoardStatus.ENDED });
                             break;
                         case "O":
                             this.localGameHistoryStats.oWinCount++;
                             boardController.setBoardCounters(this.localGameHistoryStats);
-                            boardController.setBoardStatus({ boardStatus: "ended" });
+                            boardController.setBoardStatus({ boardStatus: BoardStatus.ENDED });
                             break;
                         case "draw":
                             this.localGameHistoryStats.drawCount++;
                             boardController.setBoardCounters(this.localGameHistoryStats);
-                            boardController.setBoardStatus({ boardStatus: "ended" });
+                            boardController.setBoardStatus({ boardStatus: BoardStatus.ENDED });
                             break;
                         default:
                             break;
@@ -157,7 +160,7 @@ function GameController() {
         },
         async syncGameStats() {
             const gameState = await httpController.fetchGameState();
-            if (gameState && this.gameMode == "network") {
+            if (gameState && this.gameMode == GameMode.NETWORK) {
                 // current player
                 this.currentPlayer = gameState.currentPlayer;
                 boardController.setCurrentPlayer(this.currentPlayer);
@@ -183,10 +186,10 @@ function GameController() {
                 const results = this.checkBoardForResults();
 
                 // set board status
-                let boardStatus = this.currentPlayer == this.playerRole ? "moving" : "waiting";
+                let boardStatus = this.currentPlayer == this.playerRole ? BoardStatus.MOVING : BoardStatus.WAITING;
                 if (results) {
                     // override boardStatus if there is a result
-                    boardStatus = "ended";
+                    boardStatus = BoardStatus.ENDED;
                     // wait for any potential replay request
                     httpController.waitForReplay().then(async () => {
                         boardController.resetBoard();
@@ -195,7 +198,7 @@ function GameController() {
                 };
                 boardController.setBoardStatus({ boardStatus });
 
-                if (boardStatus == "waiting" && !results) await this.waitForOtherPlayersMove()
+                if (boardStatus == BoardStatus.WAITING && !results) await this.waitForOtherPlayersMove()
             } else {
                 // assuming it's spectator mode
 
