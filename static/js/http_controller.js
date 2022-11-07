@@ -6,7 +6,9 @@ function HttpController(gameId, playerId) {
     return {
         async fetchGameState() {
             const response = await fetch(`/api/stats?${urlQuery}`);
-            if (response.status === 200) return await response.json();
+            if (response.status === 200) {
+                return await response.json();
+            }
         },
         async postUpdate(move) {
             if (!playerId) return;
@@ -23,8 +25,9 @@ function HttpController(gameId, playerId) {
                 // await for your turn to come
                 const response = await fetch(`/api/waitTurn?${urlQuery}`);
                 if (response.status == 200) return;
-                else if (response.status == 504) return await this.waitForTurn();
-                else {
+                else if (response.status == 504) {
+                    return await this.waitForTurn();
+                } else {
                     await timeout(3000);
                     return await this.waitForTurn();
                 }
@@ -43,8 +46,9 @@ function HttpController(gameId, playerId) {
             try {
                 const response = await fetch(`/api/waitReplay?${urlQuery}`)
                 if (response.status == 200) return;
-                else if (response.status == 504) return await this.waitForReplay();
-                else {
+                else if (response.status == 504) {
+                    return await this.waitForReplay();
+                } else {
                     await timeout(3000);
                     return await this.waitForReplay();
                 }

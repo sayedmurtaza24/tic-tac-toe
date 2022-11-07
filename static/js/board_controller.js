@@ -45,7 +45,7 @@ function BoardController() {
         },
         resetBoard() {
             board.classList.remove("notInteractive");
-            boardTiles.forEach((tile) => {
+            boardTiles.forEach(tile => {
                 tile.classList = ["boardTile"];
                 tile.innerHTML = "";
             });
@@ -53,10 +53,6 @@ function BoardController() {
         setCurrentPlayer(newPlayer) {
             winnerLoserStats.innerHTML = (newPlayer == "X" ? cross(false) : circle(false)) + 'Turn';
         },
-        /**
-         * Set board status to either "It's your turn, make a move" or "Waiting for the other player to make a move..."
-         * @param {string} boardStatus Can be either "waiting", "moving", "ended", "spectating" or "empty".
-         */
         setBoardStatus({ boardStatus = BoardStatus.WAITING }) {
             if (boardStatus == BoardStatus.WAITING) {
                 this.freezeBoard();

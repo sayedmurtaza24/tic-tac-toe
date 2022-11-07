@@ -47,7 +47,7 @@ function GameController() {
                 httpController = HttpController(this.gameId);
 
                 boardController.setBoardStatus({ boardStatus: BoardStatus.SPECTATING })
-                this.handleSpectateMode();
+                this.syncGameStats();
             }
 
             // handle tile clicks
@@ -66,10 +66,6 @@ function GameController() {
             // handle back button
             const backButton = document.querySelector(".goBackButton");
             backButton.addEventListener("click", () => window.location.href = "/");
-        },
-        async handleSpectateMode() {
-            // fetch the current state of the game
-            this.syncGameStats();
         },
         async onReplay() {
             switch (this.gameMode) {
@@ -200,8 +196,6 @@ function GameController() {
 
                 if (boardStatus == BoardStatus.WAITING && !results) await this.waitForOtherPlayersMove()
             } else {
-                // assuming it's spectator mode
-
                 // current player
                 this.currentPlayer = gameState.currentPlayer;
                 boardController.setCurrentPlayer(this.currentPlayer);
